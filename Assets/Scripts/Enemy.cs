@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private EnemyMovement _movement;
+    private EnemyMovement? _movement;
 
     void Start()
     {
@@ -14,12 +14,12 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _movement.UpdatePosition();
+        _movement?.UpdatePosition();
     }
 
-    protected virtual void SetMovementScript()
+    public virtual void BeginMovingTowards(Vector3 targetPos, float speed)
     {
-        _movement = new EnemyMovement();
+        _movement = new EnemyMovement(targetPos, transform.position, speed);
     }
 
 }

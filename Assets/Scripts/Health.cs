@@ -19,7 +19,7 @@ public class Health
     public void DecreaseHealth()
     {
         _currentHealth -= 1;
-        if (_currentHealth <= 0)
+        if (_currentHealth == 0)
         {
             _currentHealth = 0;
 
