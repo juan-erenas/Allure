@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Enemy : MonoBehaviour
 {
-    private EnemyMovement? _movement;
+    public event Action<Enemy> OnDestroy;
+
+    protected EnemyMovement? _movement;
 
     void Start()
     {
@@ -15,6 +18,12 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         _movement?.UpdatePosition();
+    }
+
+    protected virtual void Die()
+    {
+        OnDestroy?.Invoke(this);
+        GameObject.Destroy(this);
     }
 
     public virtual void BeginMovingTowards(Vector3 targetPos, float speed)
