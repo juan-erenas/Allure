@@ -26,9 +26,9 @@ public class Health
             OnHealthReachZero?.Invoke();
         }
     }
-    public void IncreaseHealth()
+    public void IncreaseHealth(int amountToIncrease)
     {
-        _currentHealth += 1;
+        _currentHealth += amountToIncrease;
         if (_currentHealth > _maxHealth)
         {
             _currentHealth = _maxHealth;

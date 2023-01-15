@@ -19,6 +19,16 @@ public class Diamond : MonoBehaviour
         
     }
 
+    public void AddHealthOfAmount(int amountToAdd)
+    {
+        _health.IncreaseHealth(amountToAdd);
+    }
+
+    public void DecreaseHealth()
+    {
+        _health.DecreaseHealth();
+    }
+
     private void InitHealthAt(int maxHealth)
     {
         _health = new Health(maxHealth);
@@ -28,7 +38,7 @@ public class Diamond : MonoBehaviour
     private void Die()
     {
         OnDeath?.Invoke();
-        GameObject.Destroy(this);
+        Destroy(this);
     }
 
 }

@@ -9,6 +9,10 @@ public class DarterMovement : EnemyMovement
 
     }
 
+    public override Vector3 UpdatePosition()
+    {
+        return base.UpdatePosition();
+    }
 
 
 }
