@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Diamond : MonoBehaviour
 {
+    public event Action OnDeath;
+
     private Health _health;
-
-
     void Start()
     {
         InitHealthAt(3);
@@ -26,7 +27,8 @@ public class Diamond : MonoBehaviour
 
     private void Die()
     {
-        //end game
+        OnDeath?.Invoke();
+        GameObject.Destroy(this);
     }
 
 }

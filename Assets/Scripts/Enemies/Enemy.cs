@@ -5,9 +5,15 @@ using System;
 
 public class Enemy : MonoBehaviour
 {
-    public event Action<Enemy> OnDestroy;
+    public event Action<int> OnDestroy;
 
     protected EnemyMovement? _movement;
+    protected int _killWinAmount = 0;
+
+    private void Awake()
+    {
+        SetKillAmount();
+    }
 
     void Start()
     {
@@ -20,9 +26,14 @@ public class Enemy : MonoBehaviour
         _movement?.UpdatePosition();
     }
 
+    protected virtual void SetKillAmount()
+    {
+        _killWinAmount = 1;
+    }
+
     protected virtual void Die()
     {
-        OnDestroy?.Invoke(this);
+        OnDestroy?.Invoke(_killWinAmount);
         GameObject.Destroy(this);
     }
 

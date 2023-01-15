@@ -5,7 +5,7 @@ using System;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public event Action OnEnemyDestroyed;
+    public event Action<int> OnEnemyDestroyed;
 
     [SerializeField] private List<Enemy> _enemiesToSpawn;
 
@@ -42,9 +42,9 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void EnemyHasBeenDestroyed(Enemy enemy)
+    private void EnemyHasBeenDestroyed(int killWorth)
     {
-        OnEnemyDestroyed?.Invoke();
+        OnEnemyDestroyed?.Invoke(killWorth);
     }
 
     public void BeginSpawningEnemies(Vector3 target, float speed)

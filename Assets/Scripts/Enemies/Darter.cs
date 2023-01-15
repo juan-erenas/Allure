@@ -9,7 +9,6 @@ public class Darter : Enemy
     {
         
     }
-
     void Update()
     {
         
