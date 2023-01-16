@@ -40,7 +40,6 @@ public class Enemy : MonoBehaviour
     protected virtual void Die()
     {
         OnDestroy?.Invoke(_killWinAmount);
-        Destroy(this);
     }
 
     public virtual void BeginMovingTowards(Vector3 targetPos, float speed)

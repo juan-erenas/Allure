@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class EnemyPool<T> where T : Enemy
+public class EnemyPool<T> : MonoBehaviour where T : Enemy
 {
 
     private IObjectPool<T> _enemyPool;
     private int _capacity = 100;
     private int _maxSize = 10000;
 
-    public EnemyPool()
+    private void Start()
     {
         BuildPool();
     }
@@ -30,22 +30,26 @@ public class EnemyPool<T> where T : Enemy
         var enemy = enemyGameObject.AddComponent<T>();
         var returnToPool = enemyGameObject.AddComponent<ReturnToPool<T>>();
         returnToPool.pool = _enemyPool;
+        enemy.OnDestroy += returnToPool.OnEnemyDestroyed;
+
+        Instantiate(enemy, transform);
 
         return enemy;
     }
 
     private void OnTakeEnemy(Enemy enemy)
     {
-
+        enemy.gameObject.SetActive(true);
+        
     }
 
     private void OnReleaseEnemy(Enemy enemy)
     {
-
+        enemy.gameObject.SetActive(false);
     }
 
     private void OnDestroyEnemy(Enemy enemy)
     {
-
+        Destroy(enemy.gameObject);
     }
 }

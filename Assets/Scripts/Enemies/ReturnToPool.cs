@@ -12,8 +12,7 @@ public class ReturnToPool<T> : MonoBehaviour where T : Enemy
     {
         Enemy = GetComponent<T>();
     }
-
-    void OnParticleSystemStopped()
+    public void OnEnemyDestroyed(int _)
     {
         // Return to the pool
         pool.Release(Enemy);
