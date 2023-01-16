@@ -13,6 +13,12 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         SetKillAmount();
+        SetObjectName();
+    }
+
+    private void SetObjectName()
+    {
+        name = "Enemy"; //used in collisions
     }
 
     void Start()

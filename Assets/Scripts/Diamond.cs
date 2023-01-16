@@ -41,4 +41,12 @@ public class Diamond : MonoBehaviour
         Destroy(this);
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "Enemy")
+        {
+            DecreaseHealth();
+        }
+    }
+
 }
