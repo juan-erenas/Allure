@@ -9,28 +9,37 @@ public class GameScreen : MonoBehaviour
     private ScoreManager _scoreManageer;
     private Diamond _diamond;
 
+    [SerializeField] Camera _camera;
+
     // Start is called before the first frame update
     void Start()
     {
-        InitEnemySpawner();
+        _scoreManageer = new ScoreManager();
         InitDiamond();
+        InitEnemySpawner(_diamond.gameObject.transform.position);
     }
 
     private void InitDiamond()
     {
-        _diamond = new Diamond();
+        var gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        gameObject.transform.parent = transform;
+        gameObject.name = "Diamond";
+        _diamond = gameObject.AddComponent<Diamond>();
+
         _diamond.OnDeath += EndGame;
+
+        gameObject.transform.position = _camera.transform.position + _camera.transform.forward * 3;
+        gameObject.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
     }
 
-    private void EndGame()
+    private void InitEnemySpawner(Vector3 target)
     {
-        
-    }
-
-    private void InitEnemySpawner()
-    {
-        _enemySpawner = new EnemySpawner();
+        var gameObject = new GameObject("EnemySpawner");
+        _enemySpawner = gameObject.AddComponent<EnemySpawner>();
         _enemySpawner.OnEnemyDestroyed += EnemyHasBeenDestroyed;
+        gameObject.transform.parent = transform;
+
+        _enemySpawner.BeginSpawningEnemies(target, 0.2f);
     }
 
     private void EnemyHasBeenDestroyed(int killWorth)
@@ -42,6 +51,11 @@ public class GameScreen : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void EndGame()
+    {
+
     }
 
 
