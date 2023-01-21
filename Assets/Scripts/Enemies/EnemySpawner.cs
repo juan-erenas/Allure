@@ -9,6 +9,8 @@ public class EnemySpawner : MonoBehaviour
     public event Action<int> OnEnemyDestroyed;
 
     private EnemyPool<Enemy> _enemyPool = new EnemyPool<Enemy>();
+
+
     private Dictionary<EnemyType, int> _enemyProbability;
     private int _totalProbability = 0;
 
@@ -21,6 +23,7 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         InitEnemyProbabilities();
+        SpawnEnemy();
     }
 
     private void Update()
@@ -32,10 +35,14 @@ public class EnemySpawner : MonoBehaviour
     {
         EnemyType type = SelectEnemyToSpawn();
         Enemy selectedEnemy = GetEnemyOfType(type);
-
-        Instantiate(selectedEnemy, transform);
+        selectedEnemy.transform.position = GetSpawnPosition();
 
         selectedEnemy.BeginMovingTowards(_target, _enemySpeed);
+    }
+
+    private Vector3 GetSpawnPosition()
+    {
+        return new Vector3(0, 19, 3);
     }
 
     private Enemy GetEnemyOfType(EnemyType type)
@@ -63,6 +70,7 @@ public class EnemySpawner : MonoBehaviour
 
         throw new Exception("Total probability is larger than sum of enemy probability dict entries.");
     }
+
     private void InitEnemyProbabilities()
     {
         _enemyProbability = new Dictionary<EnemyType, int>();

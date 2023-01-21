@@ -18,6 +18,7 @@ public class Health
 
     public void DecreaseHealth()
     {
+        Debug.Log("Health was decreased!");
         _currentHealth -= 1;
         if (_currentHealth == 0)
         {

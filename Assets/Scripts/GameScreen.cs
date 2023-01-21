@@ -24,7 +24,9 @@ public class GameScreen : MonoBehaviour
         var gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
         gameObject.transform.parent = transform;
         gameObject.name = "Diamond";
+        //gameObject.AddComponent<Rigidbody>();
         _diamond = gameObject.AddComponent<Diamond>();
+        
 
         _diamond.OnDeath += EndGame;
 
@@ -39,7 +41,7 @@ public class GameScreen : MonoBehaviour
         _enemySpawner.OnEnemyDestroyed += EnemyHasBeenDestroyed;
         gameObject.transform.parent = transform;
 
-        _enemySpawner.BeginSpawningEnemies(target, 0.2f);
+        _enemySpawner.BeginSpawningEnemies(target, 2f);
     }
 
     private void EnemyHasBeenDestroyed(int killWorth)
