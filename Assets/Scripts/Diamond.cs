@@ -11,12 +11,17 @@ public class Diamond : MonoBehaviour
     void Start()
     {
         InitHealthAt(3);
+        RotateToDiamond();
     }
-
 
     void Update()
     {
         
+    }
+
+    private void RotateToDiamond()
+    {
+        transform.rotation *= Quaternion.Euler(45, 0, 45);
     }
 
     public void AddHealthOfAmount(int amountToAdd)

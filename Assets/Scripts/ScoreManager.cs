@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class ScoreManager
 {
+    private int _score = 0;
     public ScoreManager()
     {
 
     }
-
-    private int _score = 0;
 
     public int GetScore()
     {

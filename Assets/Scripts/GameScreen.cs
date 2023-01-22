@@ -11,7 +11,6 @@ public class GameScreen : MonoBehaviour
 
     [SerializeField] Camera _camera;
 
-    // Start is called before the first frame update
     void Start()
     {
         _scoreManageer = new ScoreManager();
@@ -24,7 +23,6 @@ public class GameScreen : MonoBehaviour
         var gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
         gameObject.transform.parent = transform;
         gameObject.name = "Diamond";
-        //gameObject.AddComponent<Rigidbody>();
         _diamond = gameObject.AddComponent<Diamond>();
         
 
@@ -41,7 +39,9 @@ public class GameScreen : MonoBehaviour
         _enemySpawner.OnEnemyDestroyed += EnemyHasBeenDestroyed;
         gameObject.transform.parent = transform;
 
-        _enemySpawner.BeginSpawningEnemies(target, 2f);
+        var spawnPositions = new SpawnPointFactory().Build(_diamond.transform.position, _camera.transform.position, 10, 20);
+
+        _enemySpawner.BeginSpawningEnemies(target, 2f, 3f, spawnPositions);
     }
 
     private void EnemyHasBeenDestroyed(int killWorth)

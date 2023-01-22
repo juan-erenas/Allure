@@ -8,27 +8,29 @@ public class EnemySpawner : MonoBehaviour
 {
     public event Action<int> OnEnemyDestroyed;
 
-    private EnemyPool<Enemy> _enemyPool = new EnemyPool<Enemy>();
 
+    private EnemyPool<Enemy> _enemyPool = new EnemyPool<Enemy>();
 
     private Dictionary<EnemyType, int> _enemyProbability;
     private int _totalProbability = 0;
 
-    private bool _isSpawningEnemies = false;
     private Vector3 _target;
     private float _enemySpeed;
+    private Timer _spawnTimer = new Timer();
+    private float _spawnRate = 0f;
+    private Dictionary<PointType, List<Vector3>> _spawnPositions;
 
     private System.Random RNG = new System.Random();
 
     private void Start()
     {
         InitEnemyProbabilities();
-        SpawnEnemy();
+        _spawnTimer.OnTimerComplete += SpawnEnemy;
     }
 
     private void Update()
     {
-        
+        _spawnTimer.Update();
     }
 
     private void SpawnEnemy()
@@ -36,13 +38,17 @@ public class EnemySpawner : MonoBehaviour
         EnemyType type = SelectEnemyToSpawn();
         Enemy selectedEnemy = GetEnemyOfType(type);
         selectedEnemy.transform.position = GetSpawnPosition();
+        selectedEnemy.OnDestroy += EnemyHasBeenDestroyed;
 
         selectedEnemy.BeginMovingTowards(_target, _enemySpeed);
+
+        _spawnTimer.Start(_spawnRate);
     }
 
     private Vector3 GetSpawnPosition()
     {
-        return new Vector3(0, 19, 3);
+        var positions = _spawnPositions[PointType.Low];
+        return positions[RNG.Next(positions.Count)];
     }
 
     private Enemy GetEnemyOfType(EnemyType type)
@@ -85,21 +91,19 @@ public class EnemySpawner : MonoBehaviour
         OnEnemyDestroyed?.Invoke(killWorth);
     }
 
-    public void BeginSpawningEnemies(Vector3 target, float speed)
+    public void BeginSpawningEnemies(Vector3 target, float speed, float spawnRate, Dictionary<PointType, List<Vector3>> spawnPos)
     {
         _target = target;
         _enemySpeed = speed;
-        _isSpawningEnemies = true;
+        _spawnRate = spawnRate;
+        _spawnPositions = spawnPos;
+
+        _spawnTimer.Start(_spawnRate);
     }
 
     public void StopSpawning()
     {
-        _isSpawningEnemies = false;
-    }
-
-    private Vector3 GetEnemySpawnPos(Enemy enemy)
-    {
-        return new Vector3(0, 0, 0);
+        _spawnTimer.Stop();
     }
 
 

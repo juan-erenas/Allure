@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     public event Action<int> OnDestroy;
     public event Action<Enemy> OnRelease;
 
-    protected EnemyMovement? _movement;
+    protected EnemyMovement _movement;
     protected int _killWinAmount = 0;
 
     private void Awake()
