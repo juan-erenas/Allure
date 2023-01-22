@@ -41,7 +41,7 @@ public class GameScreen : MonoBehaviour
 
         var spawnPositions = new SpawnPointFactory().Build(_diamond.transform.position, _camera.transform.position, 10, 20);
 
-        _enemySpawner.BeginSpawningEnemies(target, 2f, 3f, spawnPositions);
+        _enemySpawner.BeginSpawningEnemies(target, 2f, 200f, spawnPositions);
     }
 
     private void EnemyHasBeenDestroyed(int killWorth)

@@ -51,24 +51,17 @@ public class SpawnPointFactory
         var radians = degrees * Mathf.Deg2Rad;
         var x = Mathf.Cos(radians);
         var z = Mathf.Sin(radians);
-        var pos = new Vector3(x, y, z);
-        var posWRadius = pos * radius;
+        var pos = new Vector3(x * radius, y, z * radius);
 
-        return diamondPos + posWRadius;
+        return diamondPos + pos;
     }
 
     private float GetPlayerAngle(Vector3 diamondPos, Vector3 playerPos)
     {
-        var dot = Vector3.Dot(diamondPos, playerPos);
-        dot /= (diamondPos.magnitude * playerPos.magnitude);
+        var adjustedDiamond = new Vector2(diamondPos.x, diamondPos.z);
+        var adjustedPlayerPos = new Vector2(playerPos.x, playerPos.z);
 
-        var acos = Mathf.Acos(dot);
-        var angle = acos * 180 / Mathf.PI;
-
-        var diamondAngle = Vector3.Angle(diamondPos, playerPos);
-        var playerAngle = Vector3.Angle(playerPos, diamondPos);
-
-        return angle;
+        return Vector2.SignedAngle(Vector2.down, adjustedPlayerPos - adjustedDiamond);
     }
 
 
