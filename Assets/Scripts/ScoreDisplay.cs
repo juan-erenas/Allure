@@ -23,39 +23,33 @@ public class ScoreDisplay : MonoBehaviour
 
     public void SetScore(int newScore)
     {
-        _text.text = GetScoreAsString(newScore);
+        _text.SetText( GetScoreAsString(newScore));
     }
 
     private void CreateCanvas()
     {
-        var myGO = new GameObject();
-        myGO.name = "Canvas";
-
-        _canvas = myGO.AddComponent<Canvas>();
-        _canvas.renderMode = RenderMode.WorldSpace;
-
-        myGO.AddComponent<CanvasScaler>();
-        myGO.AddComponent<GraphicRaycaster>();
-
         // Text
         var myText = new GameObject();
-        myText.transform.parent = myGO.transform;
+        myText.transform.parent = transform;
+        myText.transform.position = transform.position;
         myText.name = "Score";
 
         _text = myText.AddComponent<TextMeshPro>();
-        //_text.font = Resources.Load("Arial");
-        _text.text = GetScoreAsString(0);
+        _text.SetText(GetScoreAsString(0));
         _text.color = new Color(0, 0, 0);
-        _text.fontSize = 100;
+        _text.alignment = TextAlignmentOptions.Center;
+        _text.fontSize = 200;
 
         // Text position
         var rectTransform = _text.GetComponent<RectTransform>();
         rectTransform.localPosition = new Vector3(0, 0, 0);
-        rectTransform.sizeDelta = new Vector2(400, 200);
+        rectTransform.sizeDelta = new Vector2(100, 10);
+        myText.transform.position += new Vector3(0, 7, 0);
     }
 
     private string GetScoreAsString(int score)
     {
-        return score.ToString();
+        int scoreLength = 5;
+        return score.ToString("D" + scoreLength); ;
     }
 }
