@@ -6,13 +6,12 @@ using TMPro;
 
 public class ScoreDisplay : MonoBehaviour
 {
-    private Canvas _canvas;
     private TextMeshPro _text;
 
     // Start is called before the first frame update
     void Start()
     {
-        CreateCanvas();
+        CreateText();
     }
 
     // Update is called once per frame
@@ -26,7 +25,7 @@ public class ScoreDisplay : MonoBehaviour
         _text.SetText( GetScoreAsString(newScore));
     }
 
-    private void CreateCanvas()
+    private void CreateText()
     {
         // Text
         var myText = new GameObject();
