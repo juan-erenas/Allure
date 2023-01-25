@@ -8,6 +8,7 @@ public class GameScreen : MonoBehaviour
     private EnemySpawner _enemySpawner;
     private ScoreManager _scoreManageer;
     private Diamond _diamond;
+    private ScoreDisplay _scoreDisplay;
 
     [SerializeField] Camera _camera;
 
@@ -16,6 +17,7 @@ public class GameScreen : MonoBehaviour
         _scoreManageer = new ScoreManager();
         InitDiamond();
         InitEnemySpawner(_diamond.gameObject.transform.position);
+        InitScore();
     }
 
     private void InitDiamond()
@@ -32,6 +34,14 @@ public class GameScreen : MonoBehaviour
         gameObject.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
     }
 
+    private void InitScore()
+    {
+        var gameObject = new GameObject("ScoreDisplay");
+        gameObject.transform.parent = transform;
+        _scoreDisplay = gameObject.AddComponent<ScoreDisplay>();
+        _scoreDisplay.transform.position = _camera.transform.position + (_camera.transform.forward * 30);
+    }
+
     private void InitEnemySpawner(Vector3 target)
     {
         var gameObject = new GameObject("EnemySpawner");
@@ -41,7 +51,7 @@ public class GameScreen : MonoBehaviour
 
         var spawnPositions = new SpawnPointFactory().Build(_diamond.transform.position, _camera.transform.position, 10, 20);
 
-        _enemySpawner.BeginSpawningEnemies(target, 2f, 200f, spawnPositions);
+        _enemySpawner.BeginSpawningEnemies(target, 2f, 2000f, spawnPositions);
     }
 
     private void EnemyHasBeenDestroyed(int killWorth)

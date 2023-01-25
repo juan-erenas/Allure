@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ScoreDisplay : MonoBehaviour
 {
     private Canvas _canvas;
-    private Text _text;
+    private TextMeshPro _text;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        CreateCanvas();
     }
 
     // Update is called once per frame
@@ -22,7 +23,7 @@ public class ScoreDisplay : MonoBehaviour
 
     public void SetScore(int newScore)
     {
-        //add score setting code
+        _text.text = GetScoreAsString(newScore);
     }
 
     private void CreateCanvas()
@@ -41,9 +42,10 @@ public class ScoreDisplay : MonoBehaviour
         myText.transform.parent = myGO.transform;
         myText.name = "Score";
 
-        _text = myText.AddComponent<Text>();
-        _text.font = (Font)Resources.Load("MyFont");
+        _text = myText.AddComponent<TextMeshPro>();
+        //_text.font = Resources.Load("Arial");
         _text.text = GetScoreAsString(0);
+        _text.color = new Color(0, 0, 0);
         _text.fontSize = 100;
 
         // Text position

@@ -47,7 +47,10 @@ public class EnemySpawner : MonoBehaviour
 
     private Vector3 GetSpawnPosition()
     {
-        var positions = _spawnPositions[PointType.Low];
+        PointType[] values = (PointType[])Enum.GetValues(typeof(PointType));
+        var randPointType = values[RNG.Next(values.Length)];
+
+        var positions = _spawnPositions[randPointType];
         return positions[RNG.Next(positions.Count)];
     }
 

@@ -26,6 +26,7 @@ public class EnemyPool<T> where T : Enemy
     private T CreateEnemy()
     {
         var enemyGameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        enemyGameObject.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         enemyGameObject.name = "Enemy";
 
         var enemy = enemyGameObject.AddComponent<T>();
