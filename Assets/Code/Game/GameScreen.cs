@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class GameScreen : MonoBehaviour
+public class GameScreen : Screen
 {
     private WeaponFactory _weaponFactory;
     private EnemySpawner _enemySpawner;
@@ -100,6 +100,10 @@ public class GameScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!IsUpdate)
+        {
+            return;
+        }
         
     }
 
