@@ -14,7 +14,8 @@ public class GameScreen : Screen
     private Diamond _diamond;
     private ScoreDisplay _scoreDisplay;
 
-    [SerializeField] Camera _camera;
+    [SerializeField] private Camera _camera;
+    [SerializeField] private XRInteractionManager _interactionManager;
 
     void Start()
     {
@@ -24,11 +25,14 @@ public class GameScreen : Screen
         InitEnemySpawner();
         InitScore();
         InitWeapon();
+
+        MakeDiamondAppear();
+        BeginSpawningEnemies(_diamond.gameObject.transform.position);
     }
 
     private void InitWeaponFactory()
     {
-        _weaponFactory = new WeaponFactory();
+        _weaponFactory = new WeaponFactory(_interactionManager);
     }
 
     private void InitWeapon()

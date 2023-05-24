@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class WeaponFactory
 {
     private Dictionary<WeaponType, GameObject> _weaponDict = new Dictionary<WeaponType, GameObject>();
+    private XRInteractionManager _interactionManager;
 
-    public WeaponFactory()
+    public WeaponFactory(XRInteractionManager interactionManager)
     {
+        _interactionManager = interactionManager;
         LoadAllWeapons();
     }
 
@@ -16,6 +19,9 @@ public class WeaponFactory
     {
         var gameObject = UnityEngine.Object.Instantiate(_weaponDict[weaponType]);
         gameObject.name = "Weapon";
+
+        var grabInteractable = gameObject.GetComponent<XRGrabInteractable>();
+        grabInteractable.interactionManager = _interactionManager;
 
         return gameObject;
     }

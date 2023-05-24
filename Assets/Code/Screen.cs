@@ -7,6 +7,8 @@ public class Screen : MonoBehaviour
 {
    public virtual event Action<Screen> OnTransitionReady;
    public virtual bool IsUpdate { get; set; }
+
+  
     
    public virtual void OnEnter()
    {
@@ -15,6 +17,6 @@ public class Screen : MonoBehaviour
 
     public virtual void OnExit()
     {
-
+        
     }
 }
